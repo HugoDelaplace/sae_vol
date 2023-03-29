@@ -29,7 +29,7 @@ create table AEROPORT(
 
 
 
-alter table VOL add constraint PK_VOL primary key (idVol,dateVol);
+alter table VOL add constraint PK_VOL primary key (idVol);
 alter table COMPAGNIE add constraint PK_COMPAGNIE primary key (idComp);
 alter table AEROPORT add constraint PK_AEROPORT primary key (codeAero);
 
@@ -56,5 +56,4 @@ insert into VOL values (3,3,to_date('2019-01-01 10:00:00', 'yyyy/mm/dd hh24:mi:s
 insert into VOL values (4,2,to_date('2019-01-01 13:00:00', 'yyyy/mm/dd hh24:mi:ss'),3,1,'B','A',to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'));
 insert into VOL values (5,1,to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'),1,4,'A','B',to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'));
 insert into VOL values (6,2,to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'),4,1,'B','A',to_date('2019-01-01 16:00:00', 'yyyy/mm/dd hh24:mi:ss'));
-insert into VOL values (7,1,to_date('2019-01-01 16:00:00', 'yyyy/mm/dd hh24:mi:ss'),1,6,'A','B',to_date('2019-01-01 17:00:00', 'yyyy/mm/dd hh24:mi:ss'));
 insert into VOL values (8,3,to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'),6,5,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'));
