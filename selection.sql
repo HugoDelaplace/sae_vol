@@ -25,7 +25,7 @@ FROM VOL v1
 INNER JOIN VOL v2 ON v1.codeAeroArr = v2.codeAeroDep AND v1.dateHeureArr < v2.dateHeureVol
 INNER JOIN AEROPORT a2 ON v1.codeAeroArr = a2.codeAero
 INNER JOIN AEROPORT a3 ON v2.codeAeroArr = a3.codeAero
-WHERE v1.codeAeroDep = (SELECT codeAero FROM AEROPORT WHERE villeAero = 'Paris' AND nomAero = 'Charles de Gaulle');
+WHERE v1.codeAeroDep = (SELECT codeAero FROM AEROPORT WHERE villeAero = 'Paris');
 
 
 
@@ -33,11 +33,25 @@ WHERE v1.codeAeroDep = (SELECT codeAero FROM AEROPORT WHERE villeAero = 'Paris' 
 -- horaires de vol, avec des vols directs ou un nombre quelconque de correspondances
 
 WITH vols_paris AS (
-    SELECT v.*, a_dep.nomAero AS aeroport_dep, a_arr.nomAero AS aeroport_arr
+    SELECT DISTINCT a.villeAero, v.dateHeureVol
     FROM VOL v
-    JOIN AEROPORT a_dep ON v.codeAeroDep = a_dep.codeAero
-    JOIN AEROPORT a_arr ON v.codeAeroArr = a_arr.codeAero
-    WHERE a_dep.villeAero = 'Paris'
+    JOIN AEROPORT a ON v.codeAeroArr = a.codeAero
+    WHERE v.codeAeroDep IN (SELECT codeAero FROM AEROPORT WHERE villeAero = 'Paris')
+    UNION
+    SELECT DISTINCT a3.villeAero, v2.dateHeureVol
+    FROM VOL v1
+    JOIN VOL v2 ON v1.codeAeroArr = v2.codeAeroDep AND v1.dateHeureArr < v2.dateHeureVol
+    JOIN AEROPORT a1 ON v1.codeAeroDep = a1.codeAero AND a1.villeAero = 'Paris'
+    JOIN AEROPORT a2 ON v1.codeAeroArr = a2.codeAero
+    JOIN AEROPORT a3 ON v2.codeAeroArr = a3.codeAero
+    WHERE v1.codeAeroDep != v2.codeAeroArr
+    UNION
+    SELECT DISTINCT a3.villeAero, v2.dateHeureVol
+    FROM VOL v1
+    INNER JOIN VOL v2 ON v1.codeAeroArr = v2.codeAeroDep AND v1.dateHeureArr < v2.dateHeureVol
+    INNER JOIN AEROPORT a2 ON v1.codeAeroArr = a2.codeAero
+    INNER JOIN AEROPORT a3 ON v2.codeAeroArr = a3.codeAero
+    WHERE v1.codeAeroDep = (SELECT codeAero FROM AEROPORT WHERE villeAero = 'Paris')
 )
 SELECT *
 FROM vols_paris
