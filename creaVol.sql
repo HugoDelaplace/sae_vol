@@ -1,15 +1,44 @@
-drop table VOL;
-drop table COMPAGNIE;
-drop table AEROPORT;
-drop table EQUIPAGE;
-drop type indice_qualite;
+DROP TABLE VOL;
+DROP TABLE COMPAGNIE;
+DROP TABLE AEROPORT;
+DROP TYPE EQUIPAGE;
+DROP TYPE indice;
 
-CREATE or replace TYPE indice_qualite AS TABLE OF NUMBER;
+CREATE OR REPLACE TYPE indice_qualite AS OBJECT (
+    nomIndice VARCHAR(50),
+    valeurIndice NUMBER(5,2),
+    poidsIndice NUMBER(5,2),
+    MEMBER FUNCTION getIndice RETURN NUMBER
+) NOT FINAL;
 
-CREATE TABLE EQUIPAGE(
+CREATE TYPE BODY indice_qualite AS
+    MEMBER FUNCTION getIndice RETURN NUMBER IS
+    BEGIN
+        RETURN valeurIndice * poidsIndice;
+    END;
+END;
+
+CREATE TYPE indice AS VARRAY(10) OF indice_qualite;
+
+CREATE OR REPLACE TYPE EQUIPAGE AS OBJECT (
     nomE VARCHAR(50),
-    fonction VARCHAR(50)
+    fonctionE VARCHAR(50),
+    MEMBER FUNCTION getNomE RETURN VARCHAR2,
+    MEMBER FUNCTION getFonctionE RETURN VARCHAR2
 );
+
+CREATE TYPE BODY EQUIPAGE AS
+    MEMBER FUNCTION getNomE RETURN VARCHAR2 IS
+    BEGIN
+        RETURN nomE;
+    END;
+    MEMBER FUNCTION getFonctionE RETURN VARCHAR2 IS
+    BEGIN
+        RETURN fonctionE;
+    END;
+END;
+
+CREATE TYPE equipage AS TABLE OF EQUIPAGE;
 
 create table VOL(
     idVol int,
@@ -59,10 +88,10 @@ insert into AEROPORT values (4,'Aéroport de Québec','Québec','Canada');
 insert into AEROPORT values (5,'Aéroport d’Alger','Alger','Algérie');
 insert into AEROPORT values (6,'Aéroport de Tamanrasset','Tamanrasset','Algérie'); 
 
-insert into VOL values (1,1,to_date('2019-01-01 10:00:00', 'yyyy/mm/dd hh24:mi:ss'),1,5,'A','B',to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'), REF(EQUIPAGE('Paul','Pilote')), indice_qualite(1,2,3));
-insert into VOL values (2,3,to_date('2019-01-01 11:10:00', 'yyyy/mm/dd hh24:mi:ss'),5,6,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), 'Paul', indice_qualite(1,2,3));
-insert into VOL values (3,3,to_date('2019-01-01 10:00:00', 'yyyy/mm/dd hh24:mi:ss'),5,6,'A','B',to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'), 'Jacques', indice_qualite(1,2,3));
-insert into VOL values (4,2,to_date('2019-01-01 13:00:00', 'yyyy/mm/dd hh24:mi:ss'),3,1,'B','A',to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'), 'Pierre', indice_qualite(1,2,3));
-insert into VOL values (5,1,to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'),1,4,'A','B',to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'), 'Paul', indice_qualite(1,2,3));
-insert into VOL values (6,2,to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'),4,1,'B','A',to_date('2019-01-01 16:00:00', 'yyyy/mm/dd hh24:mi:ss'), 'Jacques', indice_qualite(1,2,3));
-insert into VOL values (8,3,to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'),6,5,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'), 'Pierre', indice_qualite(1,2,3));
+insert into VOL values (1,1,to_date('2019-01-01 10:00:00', 'yyyy/mm/dd hh24:mi:ss'),1,5,'A','B',to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'));
+insert into VOL values (2,3,to_date('2019-01-01 11:10:00', 'yyyy/mm/dd hh24:mi:ss'),5,6,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'));
+insert into VOL values (3,3,to_date('2019-01-01 10:00:00', 'yyyy/mm/dd hh24:mi:ss'),5,6,'A','B',to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'));
+insert into VOL values (4,2,to_date('2019-01-01 13:00:00', 'yyyy/mm/dd hh24:mi:ss'),3,1,'B','A',to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'));
+insert into VOL values (5,1,to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'),1,4,'A','B',to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'));
+insert into VOL values (6,2,to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'),4,1,'B','A',to_date('2019-01-01 16:00:00', 'yyyy/mm/dd hh24:mi:ss'));
+insert into VOL values (8,3,to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'),6,5,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'));
