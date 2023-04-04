@@ -1,33 +1,28 @@
-DROP TABLE VOL;
-DROP TABLE COMPAGNIE;
-DROP TABLE AEROPORT;
-DROP TYPE EQUIPAGE;
-DROP TYPE indice;
+drop table VOL;
+drop table COMPAGNIE;
+drop table AEROPORT;
+drop type indice;
+drop type indice_qualite;
+drop type equipage2;
+drop type EQUIPAGE;
 
-CREATE OR REPLACE TYPE indice_qualite AS OBJECT (
+
+CREATE TYPE indice_qualite AS OBJECT (
     nomIndice VARCHAR(50),
     valeurIndice NUMBER(5,2),
-    poidsIndice NUMBER(5,2),
-    MEMBER FUNCTION getIndice RETURN NUMBER
-) NOT FINAL;
-
-CREATE TYPE BODY indice_qualite AS
-    MEMBER FUNCTION getIndice RETURN NUMBER IS
-    BEGIN
-        RETURN valeurIndice * poidsIndice;
-    END;
-END;
-
-CREATE TYPE indice AS VARRAY(10) OF indice_qualite;
-
-CREATE OR REPLACE TYPE EQUIPAGE AS OBJECT (
+    poidsIndice NUMBER(5,2)
+);
+/
+CREATE or replace TYPE indice AS VARRAY(10) OF indice_qualite;
+/
+CREATE TYPE EQUIPAGE AS OBJECT (
     nomE VARCHAR(50),
     fonctionE VARCHAR(50),
     MEMBER FUNCTION getNomE RETURN VARCHAR2,
     MEMBER FUNCTION getFonctionE RETURN VARCHAR2
 );
-
-CREATE TYPE BODY EQUIPAGE AS
+/
+CREATE or replace TYPE BODY EQUIPAGE AS
     MEMBER FUNCTION getNomE RETURN VARCHAR2 IS
     BEGIN
         RETURN nomE;
@@ -37,9 +32,9 @@ CREATE TYPE BODY EQUIPAGE AS
         RETURN fonctionE;
     END;
 END;
-
-CREATE TYPE equipage AS TABLE OF EQUIPAGE;
-
+/
+CREATE or replace TYPE equipage2 AS TABLE OF EQUIPAGE;
+/
 create table VOL(
     idVol int,
     idComp int,
@@ -49,9 +44,10 @@ create table VOL(
     terminalArr varchar(10),
     terminalDep varchar(10),
     dateHeureArr date,
-    equipage REF EQUIPAGE,
+    equipage equipage2,
     indices_qualite indice_qualite
-);
+)
+nested table equipage store as equipiers;
 
 create table COMPAGNIE(
     idComp int,
