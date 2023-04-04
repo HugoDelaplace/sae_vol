@@ -92,10 +92,31 @@ insert into AEROPORT values (4,'Aéroport de Québec','Québec','Canada');
 insert into AEROPORT values (5,'Aéroport d’Alger','Alger','Algérie');
 insert into AEROPORT values (6,'Aéroport de Tamanrasset','Tamanrasset','Algérie'); 
 
-insert into VOL values (1,1,to_date('2019-01-01 10:00:00', 'yyyy/mm/dd hh24:mi:ss'),1,5,'A','B',to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'),equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),indice(indice_qualite('Sièges',5,1),indice_qualite('Climatisation',1,1)));
-insert into VOL values (2,3,to_date('2019-01-01 11:10:00', 'yyyy/mm/dd hh24:mi:ss'),5,6,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'),equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),indice(indice_qualite('Sièges',3,2),indice_qualite('Climatisation',5,4)));
-insert into VOL values (3,3,to_date('2019-01-01 10:00:00', 'yyyy/mm/dd hh24:mi:ss'),5,6,'A','B',to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'),equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),indice(indice_qualite('Sièges',2,1),indice_qualite('Climatisation',5,1)));
-insert into VOL values (4,2,to_date('2019-01-01 13:00:00', 'yyyy/mm/dd hh24:mi:ss'),3,1,'B','A',to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'),equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),indice(indice_qualite('Sièges',5,3),indice_qualite('Climatisation',8,6)));
-insert into VOL values (5,1,to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'),1,4,'A','B',to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'),equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),indice(indice_qualite('Sièges',5,1),indice_qualite('Climatisation',5,1)));
-insert into VOL values (6,2,to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'),4,1,'B','A',to_date('2019-01-01 16:00:00', 'yyyy/mm/dd hh24:mi:ss'),equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),indice(indice_qualite('Sièges',5,4),indice_qualite('Climatisation',5,1)));
-insert into VOL values (8,3,to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'),6,5,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'),equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),indice(indice_qualite('Sièges',4,1),indice_qualite('Climatisation',4,1)));
+insert into VOL values (1,1,to_date('2019-01-01 10:00:00',
+ 'yyyy/mm/dd hh24:mi:ss'),1,5,'A','B',to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'),
+    equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),
+    indice(indice_qualite('Sièges',5,1),indice_qualite('Climatisation',1,1)));
+insert into VOL values (2,3,to_date('2019-01-01 11:10:00',
+ 'yyyy/mm/dd hh24:mi:ss'),5,6,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'),
+  equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),
+  indice(indice_qualite('Sièges',3,2),indice_qualite('Climatisation',5,4)));
+insert into VOL values (3,3,to_date('2019-01-01 10:00:00',
+ 'yyyy/mm/dd hh24:mi:ss'),5,6,'A','B',to_date('2019-01-01 11:00:00', 'yyyy/mm/dd hh24:mi:ss'), 
+  equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),
+  indice(indice_qualite('Sièges',2,1),indice_qualite('Climatisation',5,1)));
+insert into VOL values (4,2,to_date('2019-01-01 13:00:00',
+ 'yyyy/mm/dd hh24:mi:ss'),3,1,'B','A',to_date('2019-01-01 14:00:00', 'yyyy/mm/dd hh24:mi:ss'),
+  equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),
+  indice(indice_qualite('Sièges',5,3),indice_qualite('Climatisation',8,6)));
+insert into VOL values (5,1,to_date('2019-01-01 14:00:00',
+ 'yyyy/mm/dd hh24:mi:ss'),1,4,'A','B',to_date('2019-01-01 15:00:00', 'yyyy/mm/dd hh24:mi:ss'),
+  equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),
+  indice(indice_qualite('Sièges',5,1),indice_qualite('Climatisation',5,1)));
+insert into VOL values (6,2,to_date('2019-01-01 15:00:00',
+ 'yyyy/mm/dd hh24:mi:ss'),4,1,'B','A',to_date('2019-01-01 16:00:00', 'yyyy/mm/dd hh24:mi:ss'),
+  equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),
+  indice(indice_qualite('Sièges',5,4),indice_qualite('Climatisation',5,1)));
+insert into VOL values (8,3,to_date('2019-01-01 11:00:00',
+ 'yyyy/mm/dd hh24:mi:ss'),6,5,'B','A',to_date('2019-01-01 12:00:00', 'yyyy/mm/dd hh24:mi:ss'),
+  equipage2(equipage('Jean','Pilote'),equipage('Pierre','Copilote')),
+  indice(indice_qualite('Sièges',4,1),indice_qualite('Climatisation',4,1)));

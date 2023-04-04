@@ -79,9 +79,3 @@ FROM VOL v, TABLE(v.indices_qualite) iq;
 SELECT iq.nomIndice, AVG(iq.impact()) as impact_moyen
 FROM VOL v, TABLE(v.indices_qualite) iq
 GROUP BY iq.nomIndice;
-
-
-
-
-
-
