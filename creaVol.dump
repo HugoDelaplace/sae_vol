@@ -1,0 +1,39 @@
+
+
+CREATE(aero0:AEROPORT {codeAero: 1, nomAero: 'Charles de Gaulle', villeAero: 'Paris', paysAero: 'France'});
+CREATE(aero1:AEROPORT {codeAero: 2, nomAero: 'Aéroport de Montréal', villeAero: 'Montréal', paysAero: 'Canada'});
+CREATE(aero2:AEROPORT {codeAero: 3, nomAero: 'Aéroport de Québec', villeAero: 'Québec', paysAero: 'Canada'});
+CREATE(aero3:AEROPORT {codeAero: 4, nomAero: 'Aéroport d’Alger', villeAero: 'Alger', paysAero: 'Algérie'});
+CREATE(aero4:AEROPORT {codeAero: 5, nomAero: 'Aéroport de Tamanrasset', villeAero: 'Tamanrasset', paysAero: 'Algérie'});
+
+CREATE(comp1:COMPAGNIE {idComp: 1, siegeComp: 'Air France', caComp: 1000, fidelite: 'Oui'});
+CREATE(comp2:COMPAGNIE {idComp: 2, siegeComp: 'Air Canada', caComp: 2000, fidelite: 'Oui'});
+CREATE(comp3:COMPAGNIE {idComp: 3, siegeComp: 'Air Algérie', caComp: 3000, fidelite: 'Oui'});
+
+CREATE(vol1:VOL {idVol: 1, idComp: 1, dateHeureVol: '2019-01-01T10:00:00', terminalArr: 'A', terminalDep: 'B', dateHeureArr: '2019-01-01T12:00:00'});
+CREATE(vol2:VOL {idVol: 2, idComp: 1, dateHeureVol: '2019-01-01T10:00:00', terminalArr: 'A', terminalDep: 'B', dateHeureArr: '2019-01-01T12:00:00'});
+CREATE(vol3:VOL {idVol: 3, idComp: 2, dateHeureVol: '2019-01-01T10:00:00', terminalArr: 'A', terminalDep: 'B', dateHeureArr: '2019-01-01T12:00:00'});
+CREATE(vol4:VOL {idVol: 4, idComp: 2, dateHeureVol: '2019-01-01T10:00:00', terminalArr: 'A', terminalDep: 'B', dateHeureArr: '2019-01-01T12:00:00'});
+
+CREATE((vol1)-[:codeAeroDep]->(aero0));
+CREATE((vol1)-[:codeAeroArr]->(aero3));
+CREATE((vol2)-[:codeAeroDep]->(aero0));
+CREATE((vol2)-[:codeAeroArr]->(aero4));
+CREATE((vol3)-[:codeAeroDep]->(aero2));
+CREATE((vol3)-[:codeAeroArr]->(aero3));
+CREATE((vol4)-[:codeAeroDep]->(aero2));
+CREATE((vol4)-[:codeAeroArr]->(aero4));
+
+
+MATCH (aero:AEROPORT {villeAero: 'Paris'})-->(vol:VOL)-->(aeroArr:AEROPORT)
+RETURN DISTINCT aeroArr.villeAero
+
+MATCH (:AEROPORT {villeAero: 'Paris'})-[:codeAeroDep]->(:VOL)-[:codeAeroArr]->(a1:AEROPORT)<-[:codeAeroDep]-(v2:VOL)-[:codeAeroArr]->(a2:AEROPORT)
+WHERE NOT (a2)-[:codeAeroDep]->(:VOL)-[:codeAeroArr]->(a1)
+AND (datetime(v2.dateHeureVol) > datetime(:dateHeureVol))
+RETURN DISTINCT a2.villeAero
+
+MATCH (a:AEROPORT {villeAero: 'Paris'})-[:codeAeroArr]->(v1:VOL)-[:codeAeroDep]->(a2:AEROPORT)-[:codeAeroArr]->(v2:VOL)-[:codeAeroDep]->(a3:AEROPORT)-[:codeAeroArr]->(v3:VOL)-[:codeAeroDep]->(a4:AEROPORT)
+WHERE NOT (a)-[:codeAeroArr]->(v2)-[:codeAeroDep]->(a3) AND NOT (a2)-[:codeAeroArr]->(v3)-[:codeAeroDep]->(a4) AND v1.dateHeureArr < v2.dateHeureVol AND v2.dateHeureArr < v3.dateHeureVol
+RETURN DISTINCT a4.villeAero
+

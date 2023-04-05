@@ -1,3 +1,5 @@
+3.1
+
 --Donner les villes que nous pouvons atteindre par vols directs qui partent de Paris
 
 SELECT DISTINCT a.villeAero FROM VOL v JOIN AEROPORT a ON v.codeAeroArr = a.codeAero WHERE v.codeAeroDep IN 
@@ -57,6 +59,7 @@ SELECT *
 FROM vols_paris
 ORDER BY dateHeureVol;
 
+3.2
 
 -- Pour chaque vol, donner le nombre de personnes de l’ ́equipage, par fonction
 
@@ -79,3 +82,22 @@ FROM VOL v, TABLE(v.indices_qualite) iq;
 SELECT iq.nomIndice, AVG(iq.impact()) as impact_moyen
 FROM VOL v, TABLE(v.indices_qualite) iq
 GROUP BY iq.nomIndice;
+
+3.4
+
+Proposez une modelisation de la base de donnees VOL dans le mod`ele graphe. Expli-
+quez vos choix de modelisation
+
+(Vol)-[:EST_UN]->(Compagnie:Aerienne)
+        -[:APPARTIENT_A]->(Pays)
+        -[:PART_DE]->(Aeroport:Depart)
+        -[:PART_DE]->(Aeroport:Arrivee)
+
+Nous avons un nœud Vol qui représente chaque vol disponible.
+Le Vol est relié à un nœud Compagnie:Aerienne pour représenter la compagnie aérienne qui opère ce vol. La relation est EST_UN car un vol est associé à une seule compagnie aérienne.
+Le nœud Compagnie:Aerienne est relié à un nœud Pays via la relation APPARTIENT_A pour représenter le pays où se situe la compagnie aérienne. La relation est APPARTIENT_A car une compagnie aérienne appartient à un seul pays.
+Le nœud Pays est relié à deux nœuds Aeroport:Depart et Aeroport:Arrivee via la relation PART_DE pour représenter les aéroports de départ et d'arrivée. La relation est PART_DE car un pays peut avoir plusieurs aéroports, mais un aéroport ne peut être situé que dans un seul pays.
+
+Implementez votre base de donn ́ees en Neo4J
+
+
