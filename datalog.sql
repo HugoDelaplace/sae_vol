@@ -1,6 +1,10 @@
 COMPAGNIE(idComp, siegeComp, caComp, fidelite)
 
+COMPAGNIE(siegeComp, caComp, fidelite) <- COMPAGNIE(idComp)
+
 AEROPORT(codeAero, nomAero, villeAero, paysAero)
+
+AEROPORT(nomAero, villeAero, paysAero) <- AEROPORT(codeAero)
 
 VOL(idVol, idComp, dateHeureVol, codeAeroDep, codeAeroArr, terminalArr, terminalDep, dateHeureArr)
 
