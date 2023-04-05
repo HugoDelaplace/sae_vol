@@ -1,0 +1,25 @@
+
+CREATE (
+ (aero0:AEROPORT {codeAero: 1, nomAero: 'Charles de Gaulle', villeAero: 'Paris', paysAero: 'France'}),
+ (aero1:AEROPORT {codeAero: 2, nomAero: 'Aéroport de Montréal', villeAero: 'Montréal', paysAero: 'Canada'}),
+ (aero2:AEROPORT {codeAero: 3, nomAero: 'Aéroport de Québec', villeAero: 'Québec', paysAero: 'Canada'}),
+ (aero3:AEROPORT {codeAero: 4, nomAero: 'Aéroport d’Alger', villeAero: 'Alger', paysAero: 'Algérie'}),
+ (aero4:AEROPORT {codeAero: 5, nomAero: 'Aéroport de Tamanrasset', villeAero: 'Tamanrasset', paysAero: 'Algérie'}),
+
+ (comp1:COMPAGNIE {idComp: 1, siegeComp: 'Air France', caComp: 1000, fidelite: 'Oui'}),
+ (comp2:COMPAGNIE {idComp: 2, siegeComp: 'Air Canada', caComp: 2000, fidelite: 'Oui'}),
+ (comp3:COMPAGNIE {idComp: 3, siegeComp: 'Air Algérie', caComp: 3000, fidelite: 'Oui'}),
+
+ (vol1:VOL {idVol: 1, idComp: 1, dateHeureVol: '2019-01-01T10:00:00', codeAeroDep: 1, codeAeroArr: 5, terminalArr: 'A', terminalDep: 'B', dateHeureArr: '2019-01-01T12:00:00'}),
+ (vol2:VOL {idVol: 2, idComp: 1, dateHeureVol: '2019-01-01T10:00:00', codeAeroDep: 1, codeAeroArr: 6, terminalArr: 'A', terminalDep: 'B', dateHeureArr: '2019-01-01T12:00:00'}),
+ (vol3:VOL {idVol: 3, idComp: 2, dateHeureVol: '2019-01-01T10:00:00', codeAeroDep: 3, codeAeroArr: 4, terminalArr: 'A', terminalDep: 'B', dateHeureArr: '2019-01-01T12:00:00'}),
+ (vol4:VOL {idVol: 4, idComp: 2, dateHeureVol: '2019-01-01T10:00:00', codeAeroDep: 3, codeAeroArr: 5, terminalArr: 'A', terminalDep: 'B', dateHeureArr: '2019-01-01T12:00:00'}))
+
+(vol1)-[:codeAeroDep]->(aero0),
+(vol1)-[:codeAeroArr]->(aero3),
+(vol2)-[:codeAeroDep]->(aero0),
+(vol2)-[:codeAeroArr]->(aero4),
+(vol3)-[:codeAeroDep]->(aero2),
+(vol3)-[:codeAeroArr]->(aero3),
+(vol4)-[:codeAeroDep]->(aero2),
+(vol4)-[:codeAeroArr]->(aero4)

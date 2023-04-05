@@ -89,7 +89,7 @@ Proposez une modelisation de la base de donnees VOL dans le mod`ele graphe. Expl
 quez vos choix de modelisation
 
 (Vol)-[:EST_UN]->(Compagnie:Aerienne)
-        -[:APPARTIENT_A]->(Ville)
+        -[:APPARTIENT_A]->(Pays)
         -[:PART_DE]->(Aeroport:Depart)
         -[:PART_DE]->(Aeroport:Arrivee)
 
