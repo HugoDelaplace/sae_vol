@@ -85,11 +85,11 @@ GROUP BY iq.nomIndice;
 
 3.4
 
-Proposez une modelisation de la base de donn ́ees VOL dans le mod`ele graphe. Expli-
+Proposez une modelisation de la base de donnees VOL dans le mod`ele graphe. Expli-
 quez vos choix de modelisation
 
 (Vol)-[:EST_UN]->(Compagnie:Aerienne)
-        -[:APPARTIENT_A]->(Pays)
+        -[:APPARTIENT_A]->(Ville)
         -[:PART_DE]->(Aeroport:Depart)
         -[:PART_DE]->(Aeroport:Arrivee)
 
@@ -99,3 +99,5 @@ Le nœud Compagnie:Aerienne est relié à un nœud Pays via la relation APPARTIE
 Le nœud Pays est relié à deux nœuds Aeroport:Depart et Aeroport:Arrivee via la relation PART_DE pour représenter les aéroports de départ et d'arrivée. La relation est PART_DE car un pays peut avoir plusieurs aéroports, mais un aéroport ne peut être situé que dans un seul pays.
 
 Implementez votre base de donn ́ees en Neo4J
+
+
